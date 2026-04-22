@@ -164,3 +164,19 @@ If using **Cloud Shell UI** for the first time:
 gcloud run services delete zoo-tour-guide --region=us-west1 --quiet
 gcloud artifacts repositories delete cloud-run-source-deploy --location=us-west1 --quiet
 ```
+
+## Prompt for AI to update the README doc
+I have followed the codelab and copied some technical information and the commands and steps I took to complete the codelab for ccreating a multi agent and deploying to cloud run and agent connecting to MCP server deployed already on cloud run.
+
+Some rough instructions are in README.md file and I want you to do the following
+
+Reorganize the entire content to make it more understandable and easy to comprehend
+
+Don't delete any commands but only delete any repeated commands if done by mistake and remove any unncessary whitelines
+
+hightlight all the commands using ``` escape quotes
+
+Make all other important stuff as bold
+
+Do any other important highlighting to make this a good looking readme file but make sure no content is deleted unncessarily from my readme.md
+

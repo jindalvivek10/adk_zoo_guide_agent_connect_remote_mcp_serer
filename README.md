@@ -17,11 +17,15 @@ This guide details the steps to create a multi-agent system containing sequentia
 
 ---
 
-## 2. ADK Deploy vs. Traditional FastAPI
+## 2. ADK Deploy vs. Traditional FastAPI deploymentment to cloud RUN
+Why this is different from the https://codelabs.developers.google.com/deploy-google-adk-agent-to-cloud-run?hl=en#0 where we deployed a simple fastAPI web app containing an agent into cloud run 
+
 
 In this workflow, we use `adk deploy` instead of manually writing a `main.py` with FastAPI.
-*   **Traditional Way**: You manually manage the server, imports, and web interface logic.
+*   **Traditional Way - (Your FastAPI wrapped agent)**: You had to manually write the main.py, import the ADK library, and explicitly tell it to serve the web interface. You were the "manager" of the server.
 *   **New ADK Way**: The **ADK CLI** acts as the manager. The `adk deploy` command with the `--with-ui` flag automatically creates an optimized server logic and web interface "behind the scenes."
+
+When you use the `--with-ui flag` in the adk deploy command, it is doing the exact same thing as setting `web=True` in your old code—it's just doing it "behind the scenes" so you don't have to maintain a main.py file yourself.
 
 ---
 
@@ -92,6 +96,10 @@ echo -e "\nMCP_SERVER_URL=https://zoo-mcp-server-${PROJECT_NUMBER}.europe-west1.
 ```
 **Note**: Ensure the URL matches the region (e.g., `europe-west1`) where your MCP server was previously deployed.
 
+**Now the IAM page shows like this - 
+lab2-cr-service@vjindal-project-ai-basic.iam.gserviceaccount.com	-> Service Account for lab 2	->	Cloud Run Invoker
+	and Vertex AI User
+**
 ---
 
 ## 5. Agent Development
@@ -127,6 +135,23 @@ adk deploy cloud_run \
   --service-account=$SERVICE_ACCOUNT
 ```
 
+**Output**
+```
+Start generating Cloud Run source files in /tmp/cloud_run_deploy_src/20260417_222634
+Copying agent source code...
+Copying agent source code completed.
+Creating Dockerfile...
+Creating Dockerfile complete: /tmp/cloud_run_deploy_src/20260417_222634/Dockerfile
+Deploying to Cloud Run...
+Deploying from source requires an Artifact Registry Docker repository to store built containers. A repository named 
+[cloud-run-source-deploy] in region [us-west1] will be created.
+
+**Done**.                                                                                                                   
+Service [zoo-tour-guide] revision [zoo-tour-guide-00001-k49] has been deployed and is serving 100 percent of traffic.
+Service URL: https://zoo-tour-guide-658050955671.us-west1.run.app
+
+```
+
 **Deployment Checklist:**
 *   Select **Y** to create the Artifact Registry repository.
 *   Select **y** to allow unauthenticated invocations (for testing purposes).
@@ -137,7 +162,7 @@ adk deploy cloud_run \
 ## 7. Testing & Agent Flow
 
 ### How to Test
-1.  Open the **Service URL** in your browser.
+1.  Open the **Service URL** in your browser to access the ADK's web interface and interact with the agent..
 2.  Toggle **Token Streaming** in the upper right.
 3.  Type `hello` to trigger the **Greeter Agent**.
 4.  Ask a complex question: *"Where can I find the polar bears in the zoo and what is their diet?"*

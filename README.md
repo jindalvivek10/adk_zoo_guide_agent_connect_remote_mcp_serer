@@ -1,6 +1,7 @@
 # Multi-Agent Zoo Guide with Remote MCP Connection
+Codelab - https://codelabs.developers.google.com/codelabs/cloud-run/use-mcp-server-on-cloud-run-with-an-adk-agent#6
 
-This guide details the steps to create a multi-agent system using the **Google ADK**, deploying it to **Cloud Run**, and connecting it to a remote **MCP (Model Context Protocol)** server.
+This guide details the steps to create a multi-agent system containing sequential agent using the **Google ADK**, deploying it to **Cloud Run** using **adk deploy** , and connecting it to a remote **MCP (Model Context Protocol)** server and also other langchain tool like wikipedia.
 
 ---
 
@@ -157,3 +158,9 @@ If using **Cloud Shell UI** for the first time:
 3.  **Commit**: Stage changes with `+` and click **Commit** with a message.
 4.  **Publish**: Click **Publish Branch** -> Choose **Public** or **Private**.
 5.  **Verify**: Follow the browser prompts to authorize and view your repo on GitHub.
+
+## 9. Cleanup
+```bash
+gcloud run services delete zoo-tour-guide --region=us-west1 --quiet
+gcloud artifacts repositories delete cloud-run-source-deploy --location=us-west1 --quiet
+```
